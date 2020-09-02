@@ -9,7 +9,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  var _isFirstCrossFadeEnabled=false;
+  var _opacity = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +21,14 @@ class _MyAppState extends State<MyApp> {
           body: Center(
             child: Column(
               children: [
-                AnimatedCrossFade(
-                    firstChild: FlutterLogo(size: 100,),
-                    secondChild: Icon(Icons.android,size: 100,),
-                    crossFadeState: _isFirstCrossFadeEnabled?
-                    CrossFadeState.showFirst:CrossFadeState.showSecond,
-                    duration: Duration(seconds: 3),
+                AnimatedOpacity(
+                  opacity: _opacity,
+                  duration: Duration(seconds: 3),
+                  child: FlutterLogo(size: 200,),
                 ),
                 OutlineButton(
-                  child: Text("Animate CrossFade"),
-                  onPressed: () => animateCrossFade(),
+                  child: Text("Animate Opacity"),
+                  onPressed: () => animateOpacity(),
                 )
               ],
             ),
@@ -38,9 +36,9 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  animateCrossFade() {
+  animateOpacity() {
     setState(() {
-      _isFirstCrossFadeEnabled = !_isFirstCrossFadeEnabled;
+      _opacity = _opacity == 0 ? 1.0 : 0.0;
     });
   }
 }
